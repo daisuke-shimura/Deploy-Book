@@ -6,11 +6,36 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <script src="https://kit.fontawesome.com/d81676dda2.js" crossorigin="anonymous"></script>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
   </head>
 
   <body>
+
+    <header>
+      <% if user_signed_in? %>
+        <li><%= link_to "ホーム", root_path %></li>
+        <li><%= link_to "ユーザー", users_path %></li>
+        <li><%= link_to "ブック", books_path %></li>
+        <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
+      <% else %>
+        <li><%= link_to "ホーム", root_path %></li>
+        <li><%= link_to "About", about_path %></li>
+        <li><%= link_to "サインアップ", new_user_registration_path %></li>
+        <li><%= link_to "ログイン", new_user_session_path %></li>
+      <% end %>
+    </header>
+
+    <main>
+
     <%= yield %>
+    </main>
+
+    <footer>
+
+    </footer>
+
   </body>
 </html>
