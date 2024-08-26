@@ -16,7 +16,7 @@
      <tbody>
        <tr>
          <th><%= book.user.name %></th>
-         <th><%= image_tag book.user.get_image %></th>
+         <th><%= image_tag book.user.get_image(100,100) %></th>
          <th><%= book.title %></th>
          <th><%= book.body %></th>
        </tr>
