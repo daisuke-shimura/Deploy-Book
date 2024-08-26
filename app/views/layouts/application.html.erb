@@ -13,29 +13,36 @@
   </head>
 
   <body>
+    <div class="container">
 
-    <header>
-      <% if user_signed_in? %>
-        <li><%= link_to "ホーム", root_path %></li>
-        <li><%= link_to "ユーザー", users_path %></li>
-        <li><%= link_to "ブック", books_path %></li>
-        <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
-      <% else %>
-        <li><%= link_to "ホーム", root_path %></li>
-        <li><%= link_to "About", about_path %></li>
-        <li><%= link_to "サインアップ", new_user_registration_path %></li>
-        <li><%= link_to "ログイン", new_user_session_path %></li>
-      <% end %>
-    </header>
+        <header>
 
-    <main>
+          <% if user_signed_in? %>
+            <li><%= link_to "ホーム", root_path %></li>
+            <li><%= link_to "ユーザー", users_path %></li>
+            <li><%= link_to "ブック", books_path %></li>
+            <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
+          <% else %>
+            <li><%= link_to "ホーム", root_path %></li>
+            <li><%= link_to "About", about_path %></li>
+            <li><%= link_to "サインアップ", new_user_registration_path %></li>
+            <li><%= link_to "ログイン", new_user_session_path %></li>
+          <% end %>
+        </header>
 
-    <%= yield %>
-    </main>
+        <main>
 
-    <footer>
+        <%= yield %>
+        </main>
 
-    </footer>
+        <footer>
+          <div class="container">
+            <div class="row">
+              <p>CopyRight Infratop.inc</p>
+            </div>
+          </div>
+        </footer>
 
+    </div>
   </body>
 </html>
