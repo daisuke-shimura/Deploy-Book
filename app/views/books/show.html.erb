@@ -1,2 +1,31 @@
-<h1>Books#show</h1>
-<p>Find me in app/views/books/show.html.erb</p>
+<h1>Book detail</h1>
+<table>
+  <tr>
+    <th>
+      <%= link_to user_path(@book.user.id) do %>
+        <%= image_tag @book.user.get_image(100,100) %>
+        <br>
+        <%= @book.user.name %>
+      <% end %>
+    </th>
+    <th>
+      <%= link_to book_path(@book.id) do %>
+        <%= @book.title %>
+      <% end %>
+    </th>
+    <th><%= @book.body %></th>
+    
+    <% if @book.user == current_user %>
+      <th>
+        <%= link_to book_path(@book.id) ,method: :delete do %>
+          <button type="button" class="btn btn-danger">削除</button>
+        <% end %>
+      </th>
+      <th>
+        <%= link_to edit_book_path(@book.id) do %>
+          <button type="button" class="btn btn-info">編集</button>
+        <% end %>
+      </th>
+    <% end %>
+  </tr>
+</table>
