@@ -14,7 +14,7 @@
       <% end %>
     </th>
     <th><%= @book.body %></th>
-    
+
     <% if @book.user == current_user %>
       <th>
         <%= link_to book_path(@book.id) ,method: :delete do %>
