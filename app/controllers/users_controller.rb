@@ -18,8 +18,9 @@ class UsersController < ApplicationController
       flash[:notice] = "変更できたよ"
       redirect_to books_path
     else
-      flash[:notice] = "変更できなかったよ"
-      render :show
+      #@user = User.find(params[:id])
+      flash.now[:notice] = "変更できなかったよ"
+      render :edit
     end
   end
 

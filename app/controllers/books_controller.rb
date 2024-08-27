@@ -10,13 +10,15 @@ class BooksController < ApplicationController
       flash[:notice] = "投稿に成功したよ"
       redirect_to book_path(@book.id)
     else
+      @hon = Book.all
       flash.now[:notice] = "投稿に失敗しました"
       render :index
     end
   end
 
   def index
-    @book = Book.all
+    @hon = Book.all
+    @book = Book.new
   end
 
   def show
@@ -34,7 +36,7 @@ class BooksController < ApplicationController
       redirect_to book_path(@book.id)
     else
       flash[:notice] = "変更できなかったよ"
-      render :show
+      render :edit
     end
   end
 
