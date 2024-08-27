@@ -1,0 +1,49 @@
+<h1>ユーザーページ</h1>
+<br>
+<table>
+  <tr>
+    <th>プロフィール画像</th>
+    <th>名前</th>
+    <th>紹介文</th>
+    <th></th>
+  </tr>
+  <tr>
+    <th><%= image_tag @user.get_image(100,100) %></th>
+    <th><%= @user.name %></th>
+    <th><%= @user.introduction %></th>
+    <th>
+      <% if @user == current_user %>
+        <%= link_to edit_user_path(@user.id) do %>
+          <button type="button" class="btn btn-outline-secondary">
+            <i class="fa-solid fa-user-gear"></i>
+          </button>
+        <% end %>
+      <% end %>
+    </th>
+  </tr>
+</table>
+<br>
+<table>
+  <thead>
+    <tr>
+      <th>タイトル</th>
+      <th>感想</th>
+    </tr>
+  </thead>
+  <% @book.each do |book| %>
+  <tbody>
+    <tr>
+      <th>
+        <%= link_to book_path(book.id) do %>
+          <button type="button" class="btn btn-outline-primary">
+            <%= book.title %>
+          </button>
+        <% end %>
+      </th>
+      <th>
+        <%= book.body %>
+      </th>
+    </tr>
+  </tbody>
+  <% end %>
+</table>

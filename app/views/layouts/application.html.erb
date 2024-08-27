@@ -18,7 +18,7 @@
         <header>
 
           <% if user_signed_in? %>
-            <li><%= link_to "ホーム", root_path %></li>
+            <li><%= link_to "ホーム", about_path %></li>
             <li><%= link_to "ユーザー", users_path %></li>
             <li><%= link_to "ブック", books_path %></li>
             <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
