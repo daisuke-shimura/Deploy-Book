@@ -4,4 +4,6 @@ class Book < ApplicationRecord
   validates :body, presence: true
 
   belongs_to :user
+  has_many :book_comments, dependent: :destroy
+  
 end

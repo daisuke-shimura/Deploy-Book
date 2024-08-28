@@ -1,31 +1,61 @@
 <h1>Book detail</h1>
 <table>
-  <tr>
-    <th>
-      <%= link_to user_path(@book.user.id) do %>
-        <%= image_tag @book.user.get_image(100,100) %>
-        <br>
-        <%= @book.user.name %>
-      <% end %>
-    </th>
-    <th>
-      <%= link_to book_path(@book.id) do %>
-        <%= @book.title %>
-      <% end %>
-    </th>
-    <th><%= @book.body %></th>
+  <thead>
+    <tr>
+      <th>投稿ユーザー</th>
+      <th>タイトル</th>
+      <th>感想</th>
+      <th>コメント</th>
+      <th>いいね</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>
+        <%= link_to user_path(@book.user.id) do %>
+          <%= image_tag @book.user.get_image(100,100) %>
+          <br>
+          <%= @book.user.name %>
+        <% end %>
+      </th>
+      <th>
+        <%= link_to book_path(@book.id) do %>
+          <%= @book.title %>
+        <% end %>
+      </th>
+      <th><%= @book.body %></th>
+      <th>
+        <div>
+          <p>コメント件数：<%= @book.book_comments.count %></p>
+          <% @book.book_comments.each do |book| %>
+            <p><%= book.user.name %></p>
+            <%= book.created_at.strftime("%Y/%m/%d") %>
+            <%= book.comment %>
+          <% end %>
+        </div>
+        <div>
+          <%= form_with model: [@book, @book_comment] do |f| %>
+            <%= f.text_area :comment, rows: "5", placeholder: "コメントをここに" %>
+            <%= f.submit "投稿" %>
+          <% end %>
+        </div>
+      </th>
+      <th></th>
 
-    <% if @book.user == current_user %>
-      <th>
-        <%= link_to book_path(@book.id) ,method: :delete do %>
-          <button type="button" class="btn btn-danger">削除</button>
-        <% end %>
-      </th>
-      <th>
-        <%= link_to edit_book_path(@book.id) do %>
-          <button type="button" class="btn btn-info">編集</button>
-        <% end %>
-      </th>
-    <% end %>
-  </tr>
+      <% if @book.user == current_user %>
+        <th>
+          <%= link_to book_path(@book.id) ,method: :delete do %>
+            <button type="button" class="btn btn-danger">削除</button>
+          <% end %>
+        </th>
+        <th>
+          <%= link_to edit_book_path(@book.id) do %>
+            <button type="button" class="btn btn-info">編集</button>
+          <% end %>
+        </th>
+      <% end %>
+    </tr>
+  </tbody>
 </table>
