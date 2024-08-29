@@ -17,3 +17,7 @@
 
   <%= f.submit "保存" %>
 <% end %>
+<br>
+<%= link_to  book_path(@book.id) do %>
+  <button type="button" class="btn btn-outline-primary">戻る</button>
+<% end %>

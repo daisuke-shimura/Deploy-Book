@@ -26,7 +26,8 @@ class BookCommentsController < ApplicationController
       flash[:notice] = "変更できました"
       redirect_to book_path(params[:book_id])
     else
-      flash[:notice] = "変更できなかったよ"
+      flash.now[:notice] = "変更できなかったよ"
+      @comment = BookComment.find(params[:id])
       render :edit
     end
   end
