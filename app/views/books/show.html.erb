@@ -1,61 +1,69 @@
 <h1>Book detail</h1>
+
 <table>
   <thead>
     <tr>
       <th>投稿ユーザー</th>
       <th>タイトル</th>
       <th>感想</th>
+      <th></th>
+      <th></th>
       <th>コメント</th>
       <th>いいね</th>
-      <th></th>
-      <th></th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>
+      <td>
         <%= link_to user_path(@book.user.id) do %>
           <%= image_tag @book.user.get_image(100,100) %>
           <br>
           <%= @book.user.name %>
         <% end %>
-      </th>
-      <th>
+      </td>
+      <td>
         <%= link_to book_path(@book.id) do %>
           <%= @book.title %>
         <% end %>
-      </th>
-      <th><%= @book.body %></th>
-      <th>
+      </td>
+      <td><%= @book.body %></td>
+      <% if @book.user == current_user %>
+        <td>
+          <%= link_to book_path(@book.id) ,method: :delete do %>
+            <button type="button" class="btn btn-danger">削除</button>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to edit_book_path(@book.id) do %>
+            <button type="button" class="btn btn-info">編集</button>
+          <% end %>
+        </td>
+      <% end %>
+      <td>
         <div>
           <p>コメント件数：<%= @book.book_comments.count %></p>
-          <% @book.book_comments.each do |book| %>
-            <p><%= book.user.name %></p>
-            <%= book.created_at.strftime("%Y/%m/%d") %>
-            <%= book.comment %>
+          <% @book.book_comments.each do |book_comment| %>
+            <p><%= book_comment.user.name %></p>
+            <%= book_comment.created_at.strftime("%Y/%m/%d") %>
+            <%= book_comment.comment %>
+            <% if book_comment.user == current_user %>
+              <%= link_to "編集" , edit_book_book_comment_path(book_comment.book, book_comment) %>
+              <%= link_to "削除" , book_book_comment_path(book_comment.book, book_comment), method: :delete %>
+            <% end %>
           <% end %>
         </div>
+      </td>
+      <td></td>
+    </tr>
+    <tr>
+      <td colspan = "6" >
         <div>
           <%= form_with model: [@book, @book_comment] do |f| %>
             <%= f.text_area :comment, rows: "5", placeholder: "コメントをここに" %>
             <%= f.submit "投稿" %>
           <% end %>
         </div>
-      </th>
-      <th></th>
-
-      <% if @book.user == current_user %>
-        <th>
-          <%= link_to book_path(@book.id) ,method: :delete do %>
-            <button type="button" class="btn btn-danger">削除</button>
-          <% end %>
-        </th>
-        <th>
-          <%= link_to edit_book_path(@book.id) do %>
-            <button type="button" class="btn btn-info">編集</button>
-          <% end %>
-        </th>
-      <% end %>
+      </td>
     </tr>
   </tbody>
 </table>

@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   resources :users, only: [:index,:show,:edit,:update]
   resources :books, only: [:new,:create,:index,:show,:edit,:update,:destroy] do
-    resources :book_comments, only: [:create, :update, :destroy]
+    resources :book_comments, only: [:edit, :create, :update, :destroy]
   end
 
 
