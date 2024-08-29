@@ -8,7 +8,7 @@ class Book < ApplicationRecord
   has_many :book_favorites, dependent: :destroy
 
   def favorited_by?(user)
-    favorites.exists?(user_id: user.id)
+    book_favorites.exists?(user_id: user.id)
   end
 
 end

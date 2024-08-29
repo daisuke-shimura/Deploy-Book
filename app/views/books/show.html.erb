@@ -2,7 +2,7 @@
 
 <div class = "container">
 <div class = "row">
-  <div class = "col-md-8">
+  <div class = "col-md-9">
   <table>
     <thead>
       <tr>
@@ -56,13 +56,29 @@
             <% end %>
           </div>
         </td>
-        <td></td>
+        <td>
+          <% if @book.favorited_by?(current_user) %>
+            <p>
+              <%= link_to book_book_favorite_path(@book), method: :delete do %>
+                <i class="fa-solid fa-heart"></i>
+                <%= @book.book_favorites.count %>
+              <% end %>
+            </p>
+          <% else %>
+            <p>
+              <%= link_to book_book_favorite_path(@book), method: :post do %>
+                <i class="fa-regular fa-heart"></i>
+                <%= @book.book_favorites.count %>
+              <% end %>
+            </p>
+          <% end %>
+        </td>
       </tr>
     </tbody>
   </table>
   </div>
 
-  <div class = "col-md-4">
+  <div class = "col-md-3">
     <h2>新規コメント</h2>
     <%= form_with model: [@book, @book_comment] do |f| %>
       <%= f.text_area :comment, rows: "5", placeholder: "コメントをここに" %>
