@@ -9,27 +9,59 @@
         <th>プロフィール画像</th>
         <th>本のタイトル</th>
         <th>感想</th>
+        <th>いいね</th>
+        <th>コメント</th>
       </tr>
-    </thear>
-    <% @hon.each do |book| %>
-     <tbody>
+    </thead>
+    <tbody>
+      <% @hon.each do |book| %>
        <tr>
-          <th>
+          <td>
             <%= link_to user_path(book.user_id) do %>
               <%= book.user.name %>
             <% end %>
-          </th>
-          <th><%= link_to user_path(book.user_id) do %>
+          </td>
+          <td><%= link_to user_path(book.user_id) do %>
                 <%= image_tag book.user.get_image(100,100) %>
               <% end %>
-          </th>
-         <th>
+          </td>
+         <td>
            <%= link_to book_path(book.id) do %>
              <%= book.title %>
            <% end %>
-         </th>
-         <th><%= book.body %></th>
+         </td>
+         <td><%= book.body %></td>
+         <td>
+           <% if book.favorited_by?(current_user) %>
+             <p>
+               <%= link_to book_book_favorite_path(book), method: :delete do %>
+                <i class="fa-solid fa-heart"></i>
+                <%= book.book_favorites.count %>
+               <% end %>
+             </p>
+            <% else %>
+             <p>
+               <%= link_to book_book_favorite_path(book), method: :post do %>
+                <i class="fa-regular fa-heart"></i>
+                <%= book.book_favorites.count %>
+               <% end %>
+             </p>
+           <% end %>
+         </td>
+         <td>
+           <% if book.comment_by?(current_user) %>
+             <%= link_to book_path(book.id) do %>
+               <i class="fa-solid fa-comment"></i>
+               <%= book.book_comments.count %>
+             <% end %>
+            <% else %>
+             <%= link_to book_path(book.id) do %>
+               <i class="fa-regular fa-comment"></i>
+               <%= book.book_comments.count %>
+             <% end %>
+           <% end %>
+         </td>
        </tr>
-     </tbody>
-    <% end %>
+      <% end %>
+    </tbody>
 </table>

@@ -9,8 +9,10 @@
         <th>投稿ユーザー</th>
         <th>タイトル</th>
         <th>感想</th>
-        <th></th>
-        <th></th>
+        <% if @book.user == current_user %>
+          <th></th>
+          <th></th>
+        <% end %>
         <th>コメント</th>
         <th>いいね</th>
       </tr>
