@@ -1,17 +1,29 @@
-<%= image_tag current_user.get_image(100, 100) %>
-<table>
-  <tr>
-    <td>名前</td>
-    <td><%= current_user.name %></td>
-  </tr>
-  <tr>
-    <td>紹介</td>
-    <td><%= current_user.introduction %></td>
-  </tr>
-</table>
-
-<%= link_to edit_user_path(current_user) do %>
-  <button type="button" class="btn btn-outline-secondary">
-    <i class="fa-solid fa-user-gear"></i>
-  </button>
-<% end %>
+<div class = "container">
+  <div class = "row">
+    <h2>ログインユーザー</h2>
+    <%= link_to user_path(current_user.id) do %>
+      <%= image_tag current_user.get_image(100, 100) %>
+    <% end %>
+    <table>
+      <tr>
+        <td>名前</td>
+        <td>
+          <%= link_to user_path(current_user.id) do %>
+            <%= current_user.name %>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <td>紹介</td>
+        <td><%= current_user.introduction %></td>
+      </tr>
+    </table>
+  </div>
+  <div class = "row">
+    <%= link_to edit_user_path(current_user) do %>
+      <button type="button" class="btn btn-outline-secondary ">
+        <i class="fa-solid fa-user-gear"></i>
+      </button>
+    <% end %>
+  </div>
+</div>
