@@ -1,0 +1,23 @@
+databases:
+  - name: bookers_db
+    databaseName: bookes_db_kh8i
+    user: Deploy-Book
+    plan: free
+
+services:
+  - type: web
+    name: Deploy-Book
+    runtime: ruby
+    plan: free
+    buildCommand: "./bin/render-build.sh"
+    # preDeployCommand: "bundle exec rails db:migrate" # preDeployCommand only available on paid instance types
+    startCommand: "bundle exec rails server"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: bookers_db
+          property: connectionString
+      - key: RAILS_MASTER_KEY
+        sync: false
+      - key: WEB_CONCURRENCY
+        value: 2 # sensible default
